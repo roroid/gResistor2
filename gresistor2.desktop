@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=2.0.1
+Encoding=UTF-8
+GenericName=gResistor2
+Name=gResistor2
+Comment=Resistor color code calculator
+Icon=/usr/share/gresistor2/icon.png
+Terminal=false
+Exec=/usr/bin/gresistor2
+Type=Application
+Categories=Engineering;Electronics;

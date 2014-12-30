@@ -1,0 +1,831 @@
+#!/usr/bin/env python
+# -*- coding: UTF8 -*-
+
+from gi.repository import Gtk, Gio,GdkPixbuf,GLib
+from lxml import etree
+
+#combobox values
+value = [["none"], ["black"], ["brown"], ["red"], ["orange"], ["yellow"], ["green"], ["blue"], ["violet"], ["gray"], ["white"]]
+
+mult = [["none"], ["silver"], ["gold"],["black"], ["brown"], ["red"], ["orange"], ["yellow"], ["green"], ["blue"], ["violet"]]
+
+tol = [["none"], ["silver"], ["gold"], ["brown"], ["red"],  ["green"], ["blue"], ["violet"]]
+
+tem = [["none"], ["brown"], ["red"], ["orange"], ["yellow"]]
+
+img = Gtk.Image()
+
+multi=''
+meas=''
+tole=''
+temp=''	
+v1=''
+v2=''
+v3=''
+
+SVGNS = u"http://www.w3.org/2000/svg"
+svg = '''<!--Square 2" Tile Template -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="551"
+   height="292"
+   id="svg3938"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="desen.svg">
+  <defs
+     id="defs3940">
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3840"
+       id="linearGradient3880"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.34208122,0,0,1,122.29026,-793.5798)"
+       x1="689.05829"
+       y1="857.93304"
+       x2="689.05829"
+       y2="887.09424" />
+    <linearGradient
+       id="linearGradient3840">
+      <stop
+         id="stop3842"
+         style="stop-color:#4d4d4d;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3848"
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0.5" />
+      <stop
+         id="stop3844"
+         style="stop-color:#171717;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4136"
+       id="linearGradient3882"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-365.7487,-915.1061)"
+       x1="728.47137"
+       y1="917.27405"
+       x2="727.05823"
+       y2="1078.7909" />
+    <linearGradient
+       id="linearGradient4136">
+      <stop
+         id="stop4138"
+         style="stop-color:#d4d083;stop-opacity:1;"
+         offset="0" />
+      <stop
+         id="stop4144"
+         style="stop-color:#ffd36a;stop-opacity:1;"
+         offset="0.62499046" />
+      <stop
+         id="stop4140"
+         style="stop-color:#6b592c;stop-opacity:1;"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3861"
+       id="linearGradient3884"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-345.80476,-793.5798)"
+       x1="490.5"
+       y1="874.64062"
+       x2="501.125"
+       y2="874.64062" />
+    <linearGradient
+       id="linearGradient3861">
+      <stop
+         id="stop3863"
+         style="stop-color:#000000;stop-opacity:0.69999999"
+         offset="0" />
+      <stop
+         id="stop3865"
+         style="stop-color:#000000;stop-opacity:0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3861"
+       id="linearGradient3886"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-345.80476,-793.5798)"
+       x1="931.31293"
+       y1="872.96033"
+       x2="919.40393"
+       y2="872.96033" />
+    <linearGradient
+       id="linearGradient3913">
+      <stop
+         id="stop3915"
+         style="stop-color:#000000;stop-opacity:0.69999999"
+         offset="0" />
+      <stop
+         id="stop3917"
+         style="stop-color:#000000;stop-opacity:0"
+         offset="1" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="72.150209"
+     inkscape:cy="139.22662"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1014"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3943">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-760.36218)">
+    <g
+       id="g3852"
+       transform="matrix(0.88441831,0,0,0.88211514,-48.934375,808.61243)">
+      <g
+         transform="translate(-5.6303635,0)"
+         inkscape:label="#resistor"
+         id="resistor">
+<g
+           id="g3029"
+           transform="translate(228.66163,-8.8176407)">
+          <text
+             id="value"
+             y="229.59863"
+             x="138.7124"
+             style="font-family :Consolas;font-size:46px;font-weight:bold;text-align:center;text-anchor:middle;"
+             xml:space="preserve"
+             inkscape:label="#value">140kO +-5% 20ppm</text>
+        </g>
+      </g>
+      <g
+         transform="translate(2.8504985,0)"
+         id="g3825">
+        <path
+           inkscape:connector-curvature="0"
+           style="fill:url(#linearGradient3880);stroke:none"
+           id="path4081"
+           d="m 72.757026,67.32802 582.362664,0 0,27.84778 -582.362664,0 z" />
+        <path
+           inkscape:connector-curvature="0"
+           style="fill:url(#linearGradient3882);fill-opacity:1;stroke:none"
+           id="path4083"
+           d="m 206.07024,0.01392 c -35.69251,0.6523 -49.52282,24.6723 -59.96875,54.75 -2.51391,7.2385 -9.22074,12.1553 -18.3125,12.25 l 0,7 0,14.15618 0,7 c 9.09176,0.095 15.7986,4.9803 18.3125,12.2188 12.38037,35.6476 29.50953,62.8253 82.15625,52.625 22.63595,-4.3857 43.04841,-17.2932 66.0625,-17.0625 28.72838,0.288 56.40593,6.0192 83.5,3.8437 31.16479,-2.5022 61.40232,-12.6741 92.09375,-1.9687 48.33263,16.8588 89.85057,16.4687 111.4375,-30.2813 4.36241,-9.4475 7.13491,-20.2492 18.5625,-19.375 l 0,-7 0,-14.15618 0,-7 c -11.42759,0.8742 -14.20009,-9.9275 -18.5625,-19.375 -21.58693,-46.75 -63.10487,-47.1401 -111.4375,-30.2813 -30.69143,10.7055 -60.92896,0.5336 -92.09375,-1.9687 -27.09407,-2.1754 -54.77162,3.5245 -83.5,3.8125 -23.01409,0.2307 -43.42655,-12.6456 -66.0625,-17.0313 -8.22605,-1.5937 -15.57778,-2.277 -22.1875,-2.1562 z" />
+        <path
+           d="m 154.57024,34.17012 c -3.20084,6.3422 -5.93183,13.2891 -8.46875,20.5938 -0.18885,0.5438 -0.42085,1.0772 -0.65625,1.5937 l 0,49.43748 c 0.2354,0.5162 0.4674,1.05 0.65625,1.5938 2.53386,7.2959 5.27326,14.224 8.46875,20.5625 l 0,-93.78128 z"
+           id="path4097"
+           style="fill:url(#linearGradient3884);stroke:none"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 573.41399,33.70142 0,94.78118 c 2.88112,-4.0973 5.53287,-8.7298 7.9375,-13.9375 1.35323,-2.9306 2.55319,-5.9789 3.90625,-8.7812 l 0,-49.34378 c -1.35306,-2.8023 -2.55302,-5.8506 -3.90625,-8.7812 -2.40463,-5.2076 -5.05638,-9.8402 -7.9375,-13.9375 z"
+           id="path4099"
+           style="fill:url(#linearGradient3886);stroke:none"
+           inkscape:connector-curvature="0" />
+        <path
+           inkscape:connector-curvature="0"
+           style="fill:#000000;fill-opacity:1;stroke:none;display:none"
+           d="m 206.07024,0.01392 c -0.563,0.01 -1.10406,0.041 -1.65625,0.062 l 0,162.03118 c 6.89365,0.2738 14.60425,-0.3474 23.3125,-2 l 0,-158.03118 c -8.00879,-1.52 -15.19109,-2.1807 -21.65625,-2.0625 z"
+           id="band1" />
+        <path
+           inkscape:connector-curvature="0"
+           style="fill:#ffa500;fill-opacity:1;stroke:none;display:none"
+           d="m 311.10149,18.48262 c -5.55398,0.3723 -11.15004,0.6623 -16.78125,0.7188 -2.1993,0.022 -4.37526,-0.051 -6.53125,-0.25 l 0,124.24998 c 2.15599,-0.199 4.33195,-0.2721 6.53125,-0.25 5.63121,0.056 11.22727,0.3446 16.78125,0.7187 l 0,-125.18748 z"
+           id="band2" />
+        <path
+           inkscape:connector-curvature="0"
+           style="fill:#583030;fill-opacity:1;stroke:none;display:none"
+           d="m 365.28899,14.92012 0,132.34378 c 4.19039,-0.01 8.37008,-0.1346 12.53125,-0.4688 3.60276,-0.2892 7.20114,-0.706 10.78125,-1.1562 l 0,-129.09378 c -3.58011,-0.4501 -7.17849,-0.8669 -10.78125,-1.1562 -4.16117,-0.3341 -8.34086,-0.458 -12.53125,-0.4688 z"
+           id="band3" />
+        <path
+           inkscape:connector-curvature="0"
+           style="fill:#831119;fill-opacity:1;fill-rule:nonzero;stroke:none;display:none"
+           d="m 458.41381,20.45812 c -7.56674,1.467 -15.10302,1.8746 -22.65625,1.6563 l 0,117.96868 c 7.55326,-0.2182 15.08948,0.1894 22.65625,1.6563 l 0,-121.28128 z"
+           id="band4" />
+        <path
+           inkscape:connector-curvature="0"
+           style="fill:#008000;fill-opacity:1;stroke:none;display:none"
+           d="m 525.02597,7.3473569 c 7.42224,0.2751 15.5398,1.8884625 23.11438,5.1690391 l 0.12515,136.973924 c -8.56638,3.68994 -15.83902,5.07335 -23.27078,5.34635 l 0,-147.4893131 c 0.0105,4e-4 0.0207,-4e-4 0.0312,0 z"
+           id="band6"
+           sodipodi:nodetypes="ccccccc" />
+        <path
+           inkscape:connector-curvature="0"
+           style="fill:#ffffff;fill-opacity:0.20318723;stroke:none"
+           id="path4095"
+           d="m 520.28899,13.17012 c -23.45515,-0.4143 -44.95667,10.5363 -67.6875,14.2188 -35.81549,3.9495 -70.78736,-10.4938 -106.625,-5.8125 -28.37449,2.2281 -58.52817,8.0266 -85.6875,-3.1563 -17.15537,-5.8314 -34.53145,-12.9397 -52.9375,-12.4375 -1.29499,-0.087 -2.59455,-0.1252 -3.875,-0.094 -19.2067,0.4732 -36.49944,17.0051 -43.6875,34.2657 13.2369,-15.9618 23.30075,-26.2769 44.75,-26.2969 0.92063,-0.032 1.83246,-0.035 2.75,-0.031 13.76305,0.06 27.19183,4.0191 40.0625,8.5 25.93734,12.2904 55.77259,12.0737 83.875,8.8125 30.45336,-5.9441 61.35379,0.6806 91.6875,4 23.42904,4.2905 46.71303,-3.2492 69.0625,-9.5625 19.58388,-6.3266 52.26536,-4.5942 69.45312,8.7031 -16.84923,-16.9259 -22.1382,-19.5165 -41.14062,-21.1095 z" />
+        <path
+           inkscape:connector-curvature="0"
+           style="fill:#d4d1d5;fill-opacity:1;stroke:none;display:none"
+           d="m 501.60633,8.9358294 c -11.13917,1.7671346 -14.29392,3.0533796 -22.34826,5.3125466 l -0.6675,133.332984 c 8.06576,1.73066 16.38137,5.14876 23.81313,5.40942 L 501.63758,8.9358294 c -0.60049,1.0033622 0.27429,-0.4133737 -0.0312,0 z"
+           id="band5"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+    </g>
+    <g
+       id="g3035"
+       transform="translate(26.240932,93.393549)">
+      <g
+         id="g3041"
+         transform="translate(-23.334523,322.44068)">
+        <g
+           transform="translate(0,760.36218)"
+           style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+           id="text3019" />
+      </g>
+    </g>
+  </g>
+</svg>'''
+
+
+
+
+
+def change_resistor(band,color):
+	global svg
+	xml_data = etree.fromstring(svg)
+	# We search for element 'text' with id='tile_text' in SVG namespace
+        global value
+        global multi,meas,tole,temp,v1,v2,v3
+
+	if band==1:
+		if color==0:
+			s="#000000;display:none"
+			v1='';
+		if color==1:
+			s="#000000"
+			v1=0
+		if color==2:
+			s="#A52A2A"
+			v1=1
+		if color==3:
+			s="#FF0000"
+			v1=2
+		if color==4:
+			s="#FFA500"
+			v1=3
+		if color==5:
+			s="#FFFF00"
+			v1=4
+		if color==6:
+			s="#00FF00"
+			v1=5
+		if color==7:
+			s="#0000FF"
+			v1=6
+		if color==8:
+			s="#800080"
+			v1=7
+		if color==9:
+			s="#808080"
+			v1=8
+		if color==10:
+			s="#FFFFFF"
+			v1=9
+	if band==2:
+		if color==0:
+			s="#000000;display:none"
+			v2=''
+		if color==1:
+			s="#000000"
+			v2=0
+		if color==2:
+			s="#A52A2A"
+			v2=1
+		if color==3:
+			s="#FF0000"
+			v2=2
+		if color==4:
+			s="#FFA500"
+			v2=3
+		if color==5:
+			s="#FFFF00"
+			v2=4
+		if color==6:
+			s="#00FF00"
+			v2=5
+		if color==7:
+			s="#0000FF"
+			v2=6
+		if color==8:
+			s="#800080"
+			v2=7
+		if color==9:
+			s="#808080"
+			v2=8
+		if color==10:
+			s="#FFFFFF"
+			v2=9
+	if band==3:
+		if color==0:
+			s="#000000;display:none"
+			v3=''
+		if color==1:
+			s="#000000"
+			v3=0
+		if color==2:
+			s="#A52A2A"
+			v3=1
+		if color==3:
+			s="#FF0000"
+			v3=2
+		if color==4:
+			s="#FFA500"
+			v3=3
+		if color==5:
+			s="#FFFF00"
+			v3=4
+		if color==6:
+			s="#00FF00"
+			v3=5
+		if color==7:
+			s="#0000FF"
+			v3=6
+		if color==8:
+			s="#800080"
+			v3=7
+		if color==9:
+			s="#808080"
+			v3=8
+		if color==10:
+			s="#FFFFFF"
+			v3=9
+
+	elif band==4:
+		if color==0:
+			s="#000000;display:none"
+		        multi=0
+		        meas=u"Ω"
+		if color==1:
+			s="#C0C0C0"
+		        multi=0.01
+		        meas=u"Ω"
+		if color==2:
+			s="#FDD017"
+		        multi=0.1
+		        meas=u"Ω"
+		if color==3:
+			s="#000000"
+		        multi=1
+		        meas=u"Ω"		
+		if color==4:
+			s="#A52A2A"
+		        multi=10
+		        meas=u"Ω"
+		if color==5:
+			s="#FF0000"
+		        multi=100
+		        meas=u"Ω"
+		if color==6:
+			s="#FFA500"
+		        multi=1
+		        meas=u"kΩ"
+		if color==7:
+			s="#FFFF00"
+		        multi=10
+		        meas=u"kΩ"
+		if color==8:
+			s="#00FF00"
+		        multi=100
+		        meas=u"kΩ"			
+		if color==9:
+			s="#0000FF"
+		        multi=1
+		        meas=u"MΩ"
+		if color==10:
+			s="#800080"
+		        multi=10
+		        meas=u"MΩ"
+	elif band==5:
+		if color==0:
+			s="#000000;display:none"
+			tole='20%'
+		if color==1:
+			s="#C0C0C0"
+			tole='10%'
+		if color==2:
+			s="#FDD017"
+			tole='5%'
+		if color==3:
+			s="#A52A2A"
+			tole='1%'
+		if color==4:
+			s="#FF0000"
+			tole='2%'
+		if color==5:
+			s="#00FF00"
+			tole='0.5%'
+		if color==6:
+			s="#0000FF"
+			tole='0.25%'
+		if color==7:
+			s="#800080"
+			tole='0.1%'
+	elif band==6:
+		if color==0:
+			s="#000000;display:none"
+			temp=''
+		if color==1:
+			s="#A52A2A"
+			temp='100ppm'
+		if color==2:
+			s="#FF0000"
+			temp='50ppm'
+		if color==3:
+			s="#FFA500"
+			temp='15ppm'
+		if color==4:
+			s="#FFFF00"
+			temp='25ppm'
+
+	if band==1:
+		find_text = etree.ETXPath("//{%s}path[@id='band1']" % (SVGNS))
+		find_text(xml_data)[0].attrib["style"]="fill:"+s+";fill-opacity:1;stroke:none"
+	if band==2:
+		find_text = etree.ETXPath("//{%s}path[@id='band2']" % (SVGNS))
+		find_text(xml_data)[0].attrib["style"]="fill:"+s+";fill-opacity:1;stroke:none"
+	if band==3:
+		find_text = etree.ETXPath("//{%s}path[@id='band3']" % (SVGNS))
+		find_text(xml_data)[0].attrib["style"]="fill:"+s+";fill-opacity:1;stroke:none"
+	if band==4:
+		find_text = etree.ETXPath("//{%s}path[@id='band4']" % (SVGNS))
+		find_text(xml_data)[0].attrib["style"]="fill:"+s+";fill-opacity:1;stroke:none"
+	if band==5:
+		find_text = etree.ETXPath("//{%s}path[@id='band5']" % (SVGNS))
+		find_text(xml_data)[0].attrib["style"]="fill:"+s+";fill-opacity:1;stroke:none"
+	if band==6:
+		find_text = etree.ETXPath("//{%s}path[@id='band6']" % (SVGNS))
+		find_text(xml_data)[0].attrib["style"]="fill:"+s+";fill-opacity:1;stroke:none"
+
+	value=str(v1)+str(v2)+str(v3)
+	value=int(value)*multi
+	value=str(value)+meas+u' ±'+tole+' '+temp
+	find_text = etree.ETXPath("//{%s}text[@id='value']" % (SVGNS))
+	find_text(xml_data)[0].text=value
+
+	new_svg = etree.tostring(xml_data)
+	stream = Gio.MemoryInputStream.new_from_bytes(GLib.Bytes.new(new_svg))
+	pixbuf = GdkPixbuf.Pixbuf.new_from_stream(stream, None)
+	img.set_from_pixbuf(pixbuf)
+	img.show()
+	svg=new_svg
+	return svg
+
+class HeaderBarWindow(Gtk.Window):
+
+    def __init__(self):
+	global grid,name_box,hb,button
+        Gtk.Window.__init__(self, title="gResistor2")
+        self.set_border_width(10)
+        self.set_default_size(400, 200)
+        self.set_resizable(False)
+	self.set_icon(GdkPixbuf.Pixbuf.new_from_file("/usr/share/gresistor2/icon.png"))
+	
+
+        hb = Gtk.HeaderBar()
+        hb.set_show_close_button(True)
+        hb.props.title = "gResistor2"
+        self.set_titlebar(hb)
+
+        button = Gtk.ToggleButton()
+        icon = Gio.ThemedIcon(name="edit-find-symbolic")
+        image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
+        button.add(image)
+	button.set_tooltip_markup("Convert value to color \nExample:\n10k,5,100 for a 10kΩ resistor with 5% tolerance and 100ppm temp\n10k for a 10kΩ resistor with standard tolerance")
+	button.connect("toggled", self.toggled_cb)
+	name_box = Gtk.Entry()
+	name_box.connect("activate", self.cb_activate)
+        hb.pack_end(button)
+        #hb.pack_end(name_box)
+
+
+	listmodel = Gtk.ListStore(str)
+        # append the data in the model
+	for i in range(len(value)):
+		listmodel.append(value[i])
+	combobox = Gtk.ComboBox(model=listmodel)
+	combobox1 = Gtk.ComboBox(model=listmodel)
+	combobox2 = Gtk.ComboBox(model=listmodel)
+
+	listmodel = Gtk.ListStore(str)
+        # append the data in the model
+	for i in range(len(mult)):
+		listmodel.append(mult[i])
+	combobox3 = Gtk.ComboBox(model=listmodel)
+
+	listmodel = Gtk.ListStore(str)
+        # append the data in the model
+	for i in range(len(tol)):
+		listmodel.append(tol[i])
+	combobox4 = Gtk.ComboBox(model=listmodel)
+	listmodel = Gtk.ListStore(str)
+        # append the data in the model
+	for i in range(len(tem)):
+		listmodel.append(tem[i])
+	combobox5 = Gtk.ComboBox(model=listmodel)
+	
+	cell = Gtk.CellRendererText()
+	
+	combobox.pack_start(cell, False)
+	combobox.add_attribute(cell, "text", 0)
+	combobox.set_active(2)
+	combobox.set_tooltip_text("First digit")
+	combobox.connect("changed", self.value1)
+
+	combobox1.pack_start(cell, False)
+	combobox1.add_attribute(cell, "text", 0)
+	combobox1.set_active(1)
+	combobox1.set_tooltip_text("Second digit")
+	combobox1.connect("changed", self.value2)
+	
+	combobox2.pack_start(cell, False)
+	combobox2.add_attribute(cell, "text", 0)
+	combobox2.set_active(0)
+	combobox2.set_tooltip_text("Third digit")
+	combobox2.connect("changed", self.value3)
+	
+	combobox3.pack_start(cell, False)
+	combobox3.add_attribute(cell, "text", 0)
+	combobox3.set_active(6)
+	combobox3.set_tooltip_text("Multiplier")
+	combobox3.connect("changed", self.multiply)
+
+	combobox4.pack_start(cell, False)
+	combobox4.add_attribute(cell, "text", 0)
+	combobox4.set_active(2)
+	combobox4.set_tooltip_text("Tolerance")
+	combobox4.connect("changed", self.tolerance)
+	
+	combobox5.pack_start(cell, False)
+	combobox5.add_attribute(cell, "text", 0)
+	combobox5.set_active(0)
+	combobox5.set_tooltip_text("Temperature coeficient")
+	combobox5.connect("changed", self.temperature)	
+	
+	Label1 = Gtk.Label(label="Choose the color of band:")
+	Label1.set_justify(Gtk.Justification.LEFT)
+#	value2 = Gtk.Label(label="value2")
+#	value3 = Gtk.Label(label="value3")
+#	multiply = Gtk.Label(label="multiply")
+#	tolerance = Gtk.Label(label="tolerance")
+#	temp = Gtk.Label(label="temp.")       
+	grid = Gtk.Grid()
+	grid.set_row_spacing(10) 
+#	grid.set_column_spacing(20) 
+
+#	grid.attach(Label1,0,1,2,1)
+#	grid.attach(value2,1,2,1,1)
+#	grid.attach(value3,2,2,1,1)
+#	grid.attach(multiply,3,2,1,1)
+#	grid.attach(tolerance,4,2,1,1)
+#	grid.attach(temp,5,2,1,1)
+      
+	grid.attach(combobox,0,2,1,1)
+	grid.attach(combobox1,1,2,1,1)
+	grid.attach(combobox2,2,2,1,1)
+	grid.attach(combobox3,3,2,1,1)
+	grid.attach(combobox4,4,2,1,1)
+	grid.attach(combobox5,5,2,1,1)
+
+	xml_data = etree.fromstring(svg)
+	new_svg = etree.tostring(xml_data)
+	stream = Gio.MemoryInputStream.new_from_bytes(GLib.Bytes.new(new_svg))
+	pixbuf = GdkPixbuf.Pixbuf.new_from_stream(stream, None)
+	img.set_from_pixbuf(pixbuf)
+	img.show()
+	hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+	hseparator1 = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+	grid.attach(hseparator,0,3,6,1)
+	grid.attach(img,0,4,6,1)
+	grid.attach(hseparator1,0,5,6,1)
+	change_resistor(1,2)
+	change_resistor(2,1)
+	change_resistor(4,6)
+	change_resistor(5,2)
+        grid.attach(name_box,0,0,2,1)
+	self.add(grid)
+        grid.remove(name_box)
+
+    def value1(self, combo):
+        # if the row selected is not the first one, write its value on the
+        # terminal
+	change_resistor(1,combo.get_active())           
+    def value2(self, combo):
+        # if the row selected is not the first one, write its value on the
+        # terminal
+	change_resistor(2,combo.get_active())  
+    def value3(self, combo):
+        # if the row selected is not the first one, write its value on the
+        # terminal
+	change_resistor(3,combo.get_active())  
+    def multiply(self, combo):
+        # if the row selected is not the first one, write its value on the
+        # terminal
+	change_resistor(4,combo.get_active())  
+    def tolerance(self, combo):
+        # if the row selected is not the first one, write its value on the
+        # terminal
+	change_resistor(5,combo.get_active())  
+    def temperature(self, combo):
+        # if the row selected is not the first one, write its value on the
+        # terminal
+	change_resistor(6,combo.get_active())  
+    def toggled_cb(self, button):
+	# if the togglebutton is active, start the spinner
+        if button.get_active():
+	    hb.remove(button)
+	    hb.pack_end(name_box)
+	    hb.pack_end(button)
+            self.show_all()
+        # else, stop it
+        else:
+            hb.remove(name_box)
+	    self.show_all()
+    def cb_activate(self, entry):
+        # retrieve the content of the widget
+	resistor=entry.get_text().split(',')
+	if len(resistor[0])>6:
+		error=true
+#||resistor[0][len(resistor[0])-1)=='k'||resistor[0][len(resistor[0])-1)=='M'
+	if resistor[0][len(resistor[0])-1].isdigit():
+		if int(resistor[0])%100==0:
+			temp=int(resistor[0])/100
+			temp=str(temp)
+			change_resistor(1,int(temp[0])+1)
+			change_resistor(2,1 if len(temp)==1 else int(temp[1])+1)
+			change_resistor(3,0 if len(temp)==2 or len(temp)==1 else int(temp[2])+1)
+			change_resistor(4,4 if len(temp)==1 else 5)
+			change_resistor(5,0)
+			change_resistor(6,0)
+		elif int(resistor[0])%10==0:
+			temp=int(resistor[0])/10
+			temp=str(temp)
+			change_resistor(1,int(resistor[0][0])+1)
+			change_resistor(2,int(resistor[0][1])+1)
+			change_resistor(3,0 if len(temp)==2 or len(temp)==1 else int(temp[2])+1)
+			change_resistor(4,3 if len(temp)==1 else 4)
+			change_resistor(5,0)
+			change_resistor(6,0)
+		else:
+			if len(resistor[0])==3:
+				change_resistor(1,int(resistor[0][0])+1)
+				change_resistor(2,int(resistor[0][1])+1)
+				change_resistor(3,int(resistor[0][2])+1)
+				change_resistor(4,3)
+				change_resistor(5,0)
+				change_resistor(6,0)
+			if len(resistor[0])==2:
+				change_resistor(1,int(resistor[0][0])+1)
+				change_resistor(2,int(resistor[0][1])+1)
+				change_resistor(3,0)
+				change_resistor(4,3)
+				change_resistor(5,0)
+				change_resistor(6,0)
+			if len(resistor[0])==1:
+				change_resistor(1,int(resistor[0][0])+1)
+				change_resistor(2,1)
+				change_resistor(3,0)
+				change_resistor(4,2)
+				change_resistor(5,0)
+				change_resistor(6,0)
+	if resistor[0][len(resistor[0])-1]=='k' or resistor[0][len(resistor[0])-1]=='K':
+		resistor[0]=resistor[0].replace("k","")
+		resistor[0]=resistor[0].replace("K","")
+		if int(resistor[0])%100==0:
+			temp=int(resistor[0])/100
+			temp=str(temp)
+			change_resistor(1,int(temp[0])+1)
+			change_resistor(2,1 if len(temp)==1 else int(temp[1])+1)
+			change_resistor(3,0 if len(temp)==2 or len(temp)==1 else int(temp[2])+1)
+			change_resistor(4,7 if len(temp)==1 else 8)
+			change_resistor(5,0)
+			change_resistor(6,0)
+		elif int(resistor[0])%10==0:
+			temp=int(resistor[0])/10
+			temp=str(temp)
+			change_resistor(1,int(resistor[0][0])+1)
+			change_resistor(2,int(resistor[0][1])+1)
+			change_resistor(3,0 if len(temp)==2 or len(temp)==1 else int(temp[2])+1)
+			change_resistor(4,6 if len(temp)==1 else 7)
+			change_resistor(5,0)
+			change_resistor(6,0)
+		else:
+			if len(resistor[0])==3:
+				change_resistor(1,int(resistor[0][0])+1)
+				change_resistor(2,int(resistor[0][1])+1)
+				change_resistor(3,int(resistor[0][2])+1)
+				change_resistor(4,6)
+				change_resistor(5,0)
+				change_resistor(6,0)
+			if len(resistor[0])==2:
+				change_resistor(1,int(resistor[0][0])+1)
+				change_resistor(2,int(resistor[0][1])+1)
+				change_resistor(3,0)
+				change_resistor(4,6)
+				change_resistor(5,0)
+				change_resistor(6,0)
+			if len(resistor[0])==1:
+				change_resistor(1,int(resistor[0][0])+1)
+				change_resistor(2,1)
+				change_resistor(3,0)
+				change_resistor(4,5)
+				change_resistor(5,0)
+				change_resistor(6,0)
+
+	if resistor[0][len(resistor[0])-1]=='M' or resistor[0][len(resistor[0])-1]=='m':
+		resistor[0]=resistor[0].replace("M","")
+		resistor[0]=resistor[0].replace("m","")
+		if int(resistor[0])%10==0:
+			temp=int(resistor[0])/10
+			temp=str(temp)
+			change_resistor(1,int(resistor[0][0])+1)
+			change_resistor(2,int(resistor[0][1])+1)
+			change_resistor(3,0 if len(temp)==2 or len(temp)==1 else int(temp[2])+1)
+			change_resistor(4,9 if len(temp)==1 else 10)
+			change_resistor(5,0)
+			change_resistor(6,0)
+		else:
+			if len(resistor[0])==3:
+				change_resistor(1,int(resistor[0][0])+1)
+				change_resistor(2,int(resistor[0][1])+1)
+				change_resistor(3,int(resistor[0][2])+1)
+				change_resistor(4,9)
+				change_resistor(5,0)
+				change_resistor(6,0)
+			if len(resistor[0])==2:
+				change_resistor(1,int(resistor[0][0])+1)
+				change_resistor(2,int(resistor[0][1])+1)
+				change_resistor(3,0)
+				change_resistor(4,9)
+				change_resistor(5,0)
+				change_resistor(6,0)
+			if len(resistor[0])==1:
+				change_resistor(1,int(resistor[0][0])+1)
+				change_resistor(2,1)
+				change_resistor(3,0)
+				change_resistor(4,8)
+				change_resistor(5,0)
+				change_resistor(6,0)
+	if len(resistor)>1:
+		if resistor[1]=="10%" or resistor[1]=="10":
+			change_resistor(5,1)
+		elif resistor[1]=="5%" or resistor[1]=="5":
+			change_resistor(5,2)		
+		elif resistor[1]=="1%" or resistor[1]=="1":
+			change_resistor(5,3)	
+		elif resistor[1]=="2%" or resistor[1]=="2":
+			change_resistor(5,4)	
+		elif resistor[1]=="0.5%" or resistor[1]=="0.5":
+			change_resistor(5,5)	
+		elif resistor[1]=="0.25%" or resistor[1]=="0.25":
+			change_resistor(5,6)	
+		elif resistor[1]=="0.1%" or resistor[1]=="0.1":
+			change_resistor(5,7)	
+	if len(resistor)>2:
+		if resistor[2]=="100" or resistor[1]=="100ppm":
+			change_resistor(6,1)
+		elif resistor[2]=="50" or resistor[1]=="50ppm":
+			change_resistor(6,2)		
+		elif resistor[1]=="15" or resistor[1]=="15ppm":
+			change_resistor(6,3)	
+		elif resistor[1]=="25" or resistor[1]=="25ppm":
+			change_resistor(6,4)	
+
+        # print it in a nice form in the terminal
+
+
+win = HeaderBarWindow()
+win.connect("delete-event", Gtk.main_quit)
+
+win.show_all()
+
+Gtk.main()
