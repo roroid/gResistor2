@@ -500,10 +500,10 @@ def change_resistor(band,color):
 	svg=new_svg
 	return svg
 
-class HeaderBarWindow(Gtk.Window):
+class gResistor2(Gtk.Window):
 
     def __init__(self):
-	global grid,name_box,hb,button
+	global grid,name_box,hb,button,combobox,combobox1,combobox2,combobox3,combobox4,combobox5
         Gtk.Window.__init__(self, title="gResistor2")
         self.set_border_width(10)
         self.set_default_size(400, 200)
@@ -514,11 +514,6 @@ class HeaderBarWindow(Gtk.Window):
 		print "Iconita aplicatiei nu a fost gasita"
 		pass
 
-        hb = Gtk.HeaderBar()
-        hb.set_show_close_button(True)
-        hb.props.title = "gResistor2"
-        self.set_titlebar(hb)
-
         button = Gtk.ToggleButton()
         icon = Gio.ThemedIcon(name="edit-find-symbolic")
         image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
@@ -527,8 +522,6 @@ class HeaderBarWindow(Gtk.Window):
 	button.connect("toggled", self.toggled_cb)
 	name_box = Gtk.Entry()
 	name_box.connect("activate", self.cb_activate)
-        hb.pack_end(button)
-        #hb.pack_end(name_box)
 
 
 	listmodel = Gtk.ListStore(str)
@@ -595,29 +588,18 @@ class HeaderBarWindow(Gtk.Window):
 	combobox5.connect("changed", self.temperature)	
 	
 	Label1 = Gtk.Label(label="Choose the color of band:")
-	Label1.set_justify(Gtk.Justification.LEFT)
-#	value2 = Gtk.Label(label="value2")
-#	value3 = Gtk.Label(label="value3")
-#	multiply = Gtk.Label(label="multiply")
-#	tolerance = Gtk.Label(label="tolerance")
-#	temp = Gtk.Label(label="temp.")       
+	Label1.set_justify(Gtk.Justification.LEFT)  
 	grid = Gtk.Grid()
 	grid.set_row_spacing(10) 
-#	grid.set_column_spacing(20) 
-
-#	grid.attach(Label1,0,1,2,1)
-#	grid.attach(value2,1,2,1,1)
-#	grid.attach(value3,2,2,1,1)
-#	grid.attach(multiply,3,2,1,1)
-#	grid.attach(tolerance,4,2,1,1)
-#	grid.attach(temp,5,2,1,1)
       
-	grid.attach(combobox,0,2,1,1)
-	grid.attach(combobox1,1,2,1,1)
-	grid.attach(combobox2,2,2,1,1)
-	grid.attach(combobox3,3,2,1,1)
-	grid.attach(combobox4,4,2,1,1)
-	grid.attach(combobox5,5,2,1,1)
+	grid.attach(button,0,2,1,1)
+
+	grid.attach(combobox,1,2,1,1)
+	grid.attach(combobox1,2,2,1,1)
+	grid.attach(combobox2,3,2,1,1)
+	grid.attach(combobox3,4,2,1,1)
+	grid.attach(combobox4,5,2,1,1)
+	grid.attach(combobox5,6,2,1,1)
 
 	xml_data = etree.fromstring(svg)
 	new_svg = etree.tostring(xml_data)
@@ -627,16 +609,16 @@ class HeaderBarWindow(Gtk.Window):
 	img.show()
 	hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
 	hseparator1 = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-	grid.attach(hseparator,0,3,6,1)
-	grid.attach(img,0,4,6,1)
-#	grid.attach(hseparator1,0,5,6,1)
+	grid.attach(hseparator,0,3,8,1)
+	grid.attach(img,0,4,7,1)
+
 	change_resistor(1,2)
 	change_resistor(2,1)
 	change_resistor(4,6)
 	change_resistor(5,2)
-        grid.attach(name_box,0,0,2,1)
+
 	self.add(grid)
-        grid.remove(name_box)
+
 
     def value1(self, combo):
         # if the row selected is not the first one, write its value on the
@@ -665,13 +647,25 @@ class HeaderBarWindow(Gtk.Window):
     def toggled_cb(self, button):
 	# if the togglebutton is active, start the spinner
         if button.get_active():
-	    hb.remove(button)
-	    hb.pack_end(name_box)
-	    hb.pack_end(button)
+	    grid.remove(combobox)
+	    grid.remove(combobox1)
+	    grid.remove(combobox2)
+	    grid.remove(combobox3)
+	    grid.remove(combobox4)
+	    grid.remove(combobox5)
+#	    grid.remove(button)
+#	    grid.attach(button,0,2,1,1)
+	    grid.attach(name_box,1,2,6,1)
             self.show_all()
         # else, stop it
         else:
-            hb.remove(name_box)
+            grid.remove(name_box)
+	    grid.attach(combobox,1,2,1,1)
+	    grid.attach(combobox1,2,2,1,1)
+	    grid.attach(combobox2,3,2,1,1)
+	    grid.attach(combobox3,4,2,1,1)
+	    grid.attach(combobox4,5,2,1,1)
+	    grid.attach(combobox5,6,2,1,1)
 	    self.show_all()
     def cb_activate(self, entry):
         # retrieve the content of the widget
@@ -826,7 +820,7 @@ class HeaderBarWindow(Gtk.Window):
         # print it in a nice form in the terminal
 
 
-win = HeaderBarWindow()
+win = gResistor2()
 win.connect("delete-event", Gtk.main_quit)
 
 win.show_all()
