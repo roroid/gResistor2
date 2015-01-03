@@ -11,5 +11,6 @@ setup(name='gresistor2',
                        ['gresistor2.desktop']),('share/gresistor2',
                        ['icon.png']),('share/gresistor2/locale/ro_RO/LC_MESSAGES',
                        ['locale/ro_RO/LC_MESSAGES/default.mo']),('share/gresistor2/locale/en/LC_MESSAGES',
-                       ['locale/en/LC_MESSAGES/default.mo'])],
+                       ['locale/en/LC_MESSAGES/default.mo']),('share/gresistor2/locale/ru_RU/LC_MESSAGES',
+                       ['locale/ru_RU/LC_MESSAGES/default.mo'])],
       )
