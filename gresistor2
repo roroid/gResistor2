@@ -3,15 +3,21 @@
 
 from gi.repository import Gtk, Gio,GdkPixbuf,GLib,Gdk
 from lxml import etree
+import gettext
+
+t = gettext.translation('default', "/usr/share/gresistor2/locale", fallback=True)
+_ = t.gettext
+
+
 
 #combobox values
-value = [["none"], ["black"], ["brown"], ["red"], ["orange"], ["yellow"], ["green"], ["blue"], ["violet"], ["gray"], ["white"]]
+value = [[_("none")], [_("black")], [_("brown")], [_("red")], [_("orange")], [_("yellow")], [_("green")], [_("blue")], [_("violet")], [_("gray")], [_("white")]]
 
-mult = [["none"], ["silver"], ["gold"],["black"], ["brown"], ["red"], ["orange"], ["yellow"], ["green"], ["blue"], ["violet"]]
+mult = [[_("none")], [_("silver")], [_("gold")],[_("black")], [_("brown")], [_("red")], [_("orange")], [_("yellow")], [_("green")], [_("blue")], [_("violet")]]
 
-tol = [["none"], ["silver"], ["gold"], ["brown"], ["red"],  ["green"], ["blue"], ["violet"]]
+tol = [[_("none")], [_("silver")], [_("gold")], [_("brown")], [_("red")],  [_("green")], [_("blue")], [_("violet")]]
 
-tem = [["none"], ["brown"], ["red"], ["orange"], ["yellow"]]
+tem = [[_("none")], [_("brown")], [_("red")], [_("orange")], [_("yellow")]]
 
 img = Gtk.Image()
 
@@ -269,7 +275,6 @@ svg = '''<!--Square 2" Tile Template -->
 
 
 
-
 def change_resistor(band,color):
 	global svg
 	xml_data = etree.fromstring(svg)
@@ -511,14 +516,14 @@ class gResistor2(Gtk.Window):
 	try:
 		self.set_icon(GdkPixbuf.Pixbuf.new_from_file("/usr/share/gresistor2/icon.png"))
 	except:
-		print "Iconita aplicatiei nu a fost gasita"
+		print _("Application icon not found")
 		pass
 
         button = Gtk.ToggleButton()
         icon = Gio.ThemedIcon(name="edit-find-symbolic")
         image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
         button.add(image)
-	button.set_tooltip_markup("Convert value to color \nExample:\n10k,5,100 for a 10kΩ resistor with 5% tolerance and 100ppm temp\n10k for a 10kΩ resistor with standard tolerance")
+	button.set_tooltip_markup(_("Convert value to color\nExample:\n-10k,5,100 for a 10K resistor with 5% tolerance and 100ppm temp\n-10k for a 10K resistor with standard tolerance"))
 	button.connect("toggled", self.toggled_cb)
 	name_box = Gtk.Entry()
 	name_box.connect("activate", self.cb_activate)
@@ -554,40 +559,40 @@ class gResistor2(Gtk.Window):
 	combobox.pack_start(cell, False)
 	combobox.add_attribute(cell, "text", 0)
 	combobox.set_active(2)
-	combobox.set_tooltip_text("First digit")
+	combobox.set_tooltip_text(_("First digit"))
 	combobox.connect("changed", self.value1)
 
 	combobox1.pack_start(cell, False)
 	combobox1.add_attribute(cell, "text", 0)
 	combobox1.set_active(1)
-	combobox1.set_tooltip_text("Second digit")
+	combobox1.set_tooltip_text(_("Second digit"))
 	combobox1.connect("changed", self.value2)
 	
 	combobox2.pack_start(cell, False)
 	combobox2.add_attribute(cell, "text", 0)
 	combobox2.set_active(0)
-	combobox2.set_tooltip_text("Third digit")
+	combobox2.set_tooltip_text(_("Third digit"))
 	combobox2.connect("changed", self.value3)
 	
 	combobox3.pack_start(cell, False)
 	combobox3.add_attribute(cell, "text", 0)
 	combobox3.set_active(6)
-	combobox3.set_tooltip_text("Multiplier")
+	combobox3.set_tooltip_text(_("Multiplier"))
 	combobox3.connect("changed", self.multiply)
 
 	combobox4.pack_start(cell, False)
 	combobox4.add_attribute(cell, "text", 0)
 	combobox4.set_active(2)
-	combobox4.set_tooltip_text("Tolerance")
+	combobox4.set_tooltip_text(_("Tolerance"))
 	combobox4.connect("changed", self.tolerance)
 	
 	combobox5.pack_start(cell, False)
 	combobox5.add_attribute(cell, "text", 0)
 	combobox5.set_active(0)
-	combobox5.set_tooltip_text("Temperature coeficient")
+	combobox5.set_tooltip_text(_("Temperature coeficient"))
 	combobox5.connect("changed", self.temperature)	
 	
-	Label1 = Gtk.Label(label="Choose the color of band:")
+	Label1 = Gtk.Label(label=_("Choose the color of band:"))
 	Label1.set_justify(Gtk.Justification.LEFT)  
 	grid = Gtk.Grid()
 	grid.set_row_spacing(10) 

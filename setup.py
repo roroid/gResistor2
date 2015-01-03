@@ -9,5 +9,7 @@ setup(name='gresistor2',
       scripts=['gresistor2'],
       data_files = [('share/applications',
                        ['gresistor2.desktop']),('share/gresistor2',
-                       ['icon.png'])],
+                       ['icon.png']),('share/gresistor2/locale/ro_RO/LC_MESSAGES',
+                       ['locale/ro_RO/LC_MESSAGES/default.mo']),('share/gresistor2/locale/en/LC_MESSAGES',
+                       ['locale/en/LC_MESSAGES/default.mo'])],
       )
